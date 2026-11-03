@@ -1,0 +1,56 @@
+/* ===== products (step 4) ===== */
+.products__head { max-width: 40rem; margin-inline: auto; margin-bottom: 2rem; }
+.filters { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-bottom: 2.4rem; }
+.fchip {
+  padding: .55rem 1.3rem; border-radius: 999px; font-size: var(--fs-sm); font-weight: 700;
+  background: #fff; border: 1.5px solid var(--line); color: var(--ink-700);
+  transition: background .25s, color .25s, border-color .25s, transform .25s var(--ease);
+}
+.fchip:hover { transform: translateY(-2px); border-color: var(--saffron-600); }
+.fchip.is-on { background: var(--saffron-600); border-color: var(--saffron-600); color: #fff; }
+
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+.pcard {
+  --rx: 0deg; --ry: 0deg;
+  background: #fff; border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; box-shadow: var(--shadow-1);
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .25s ease-out, box-shadow .35s;
+  opacity: 0; animation: pop .7s var(--ease) forwards; animation-delay: calc(var(--i) * .06s);
+}
+@keyframes pop { from { opacity: 0; transform: translateY(26px) scale(.96); } to { opacity: 1; } }
+.pcard:hover { box-shadow: var(--shadow-2); }
+.pcard__img { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--cream-100); }
+.pcard__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.pcard:hover .pcard__img img { transform: scale(1.1); }
+.pcard__badge { position: absolute; top: 12px; inset-inline-start: 12px; padding: .2rem .8rem; border-radius: 999px; font-size: var(--fs-xs); font-weight: 800; background: var(--gold-500); color: var(--ink-900); }
+.pcard__body { padding: 1.1rem 1.2rem 1.2rem; }
+.pcard h3 { font-size: 1rem; line-height: 1.6; margin: 0 0 .3rem; min-height: 3.2em; }
+.pcard__size { display: inline-block; font-size: var(--fs-xs); font-weight: 700; padding: .1rem .7rem; border-radius: 999px; background: var(--crocus-100); color: var(--crocus-600); }
+.pcard__foot { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: .9rem; border-top: 1px dashed var(--line); }
+.pcard__foot b { color: var(--saffron-700); font-size: var(--fs-sm); }
+.pcard__foot b.ask { color: var(--ink-500); font-weight: 700; }
+.pcard__go { font-size: var(--fs-xs); font-weight: 700; color: var(--accent); transition: transform .3s var(--ease); }
+.pcard:hover .pcard__go { transform: translateX(-5px); }
+.pcard:focus-visible { outline-offset: 4px; }
+
+/* modal */
+.pdlg { border: 0; padding: 0; border-radius: var(--radius-lg); width: min(92vw, 820px); background: var(--cream-50); color: var(--text); box-shadow: 0 40px 100px rgba(0, 0, 0, .5); overflow: hidden; font-family: var(--font); }
+.pdlg[open] { animation: dlg .45s var(--ease); }
+.pdlg::backdrop { background: rgba(20, 8, 12, .7); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+@keyframes dlg { from { opacity: 0; transform: translateY(30px) scale(.95); } }
+.pdlg__in { display: grid; grid-template-columns: 1fr 1fr; }
+.pdlg__in img { width: 100%; height: 100%; max-height: 70vh; object-fit: cover; }
+.pdlg__txt { padding: 2rem 1.8rem; display: flex; flex-direction: column; justify-content: center; gap: .6rem; }
+.pdlg__size { align-self: flex-start; }
+.pdlg__txt h3 { font-size: var(--fs-lg); margin: 0; }
+.pdlg__price { font-size: var(--fs-lg); font-weight: 900; color: var(--saffron-700); }
+.pdlg__desc { color: var(--ink-700); font-size: var(--fs-sm); margin: 0; }
+.pdlg__note { font-size: var(--fs-xs); color: var(--text-soft); margin: 0; }
+.pdlg__x { position: absolute; top: 12px; inset-inline-start: 12px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, .9); font-size: 1.3rem; z-index: 2; box-shadow: var(--shadow-1); }
+@media (max-width: 560px) {
+  .pgrid { grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+  .pcard__body { padding: .8rem; } .pcard h3 { font-size: .85rem; min-height: 4.8em; }
+  .pcard__foot { flex-direction: column; align-items: flex-start; gap: .2rem; } .pcard__foot b { font-size: .78rem; }
+}
+@media (max-width: 700px) { .pdlg__in { grid-template-columns: 1fr; } .pdlg__in img { max-height: 42vh; } .pdlg__txt { padding: 1.4rem; } }
+@media (prefers-reduced-motion: reduce) { .pcard { opacity: 1; animation: none; } }

@@ -1,0 +1,24 @@
+/* ===== contact + footer (step 7) ===== */
+.contact__head { max-width: 40rem; margin-inline: auto; margin-bottom: 2.6rem; }
+.cgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; max-width: 980px; margin-inline: auto; }
+.ccard {
+  display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem; border-radius: var(--radius); background: #fff; box-shadow: var(--shadow-1);
+  transition: transform .35s var(--ease), box-shadow .35s;
+}
+.ccard:hover { transform: translateY(-5px); box-shadow: var(--shadow-2); }
+.ccard__ic { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-weight: 900; background: var(--crocus-100); color: var(--crocus-600); transition: background .3s, color .3s; }
+.ccard:hover .ccard__ic { background: var(--saffron-600); color: #fff; }
+.ccard b { display: block; line-height: 1.5; }
+.ccard span { font-size: var(--fs-xs); color: var(--text-soft); direction: ltr; unicode-bidi: plaintext; }
+.contact__loc { text-align: center; margin-top: 2.2rem; color: var(--text-soft); font-size: var(--fs-sm); }
+
+.site-footer { background: var(--bg-dark); color: rgba(251, 246, 236, .8); padding-block: 3.5rem 2rem; font-size: var(--fs-sm); }
+.footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255, 255, 255, .12); }
+.footer__brand b { display: block; font-size: 1.5rem; color: var(--gold-300); margin-bottom: .4rem; }
+.footer__grid h4 { color: #fff; font-size: var(--fs-sm); margin-bottom: .8rem; }
+.footer__grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.footer__grid a:hover { color: var(--gold-300); }
+.footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; padding-top: 1.5rem; font-size: var(--fs-xs); color: rgba(251, 246, 236, .5); }
+.totop { position: fixed; inset-inline-end: 1rem; bottom: 1rem; z-index: 40; width: 46px; height: 46px; border-radius: 50%; background: var(--gold-500); color: var(--ink-900); font-size: 1.3rem; font-weight: 900; box-shadow: var(--shadow-2); opacity: 0; transform: translateY(20px); pointer-events: none; transition: opacity .3s, transform .4s var(--ease); }
+.totop.is-on { opacity: 1; transform: none; pointer-events: auto; }
+@media (max-width: 760px) { .footer__grid { grid-template-columns: 1fr; } }

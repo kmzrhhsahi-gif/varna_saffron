@@ -1,0 +1,141 @@
+/* ===== Varna Saffron - base.css (step 1: foundation) ===== */
+
+/* Font: if you put Vazirmatn.woff2 in assets/fonts/ it is used first (works offline and
+   in Iran without CDN). Otherwise the CDN link in index.html is used. */
+@font-face {
+  font-family: "VarnaFont"; font-weight: 100 900; font-display: swap;
+  src: url("../assets/fonts/Vazirmatn.woff2") format("woff2");
+}
+:root {
+  /* palette */
+  --saffron-900: #5a0a14;
+  --saffron-700: #8f0f21;
+  --saffron-600: #b31228;
+  --saffron-500: #d3202f;
+  --gold-500: #d9a441;
+  --gold-300: #efcf8a;
+  --crocus-600: #6b4a9e;
+  --crocus-400: #a08bd1;
+  --crocus-100: #ece6f7;
+  --cream-50: #fbf6ec;
+  --cream-100: #f4ebd9;
+  --ink-900: #1c1215;
+  --ink-700: #3a2b30;
+  --ink-500: #6d5d62;
+  --white: #fff;
+
+  /* semantic */
+  --bg: var(--cream-50);
+  --bg-alt: var(--cream-100);
+  --bg-dark: #170b0e;
+  --text: var(--ink-900);
+  --text-soft: var(--ink-500);
+  --accent: var(--saffron-600);
+  --line: rgba(28, 18, 21, .12);
+
+  /* type */
+  --font: "VarnaFont", "Vazirmatn", "Vazir", Tahoma, "Segoe UI", system-ui, sans-serif;
+  --fs-xs: clamp(.78rem, .76rem + .1vw, .85rem);
+  --fs-sm: clamp(.9rem, .87rem + .15vw, .98rem);
+  --fs-md: clamp(1rem, .96rem + .25vw, 1.12rem);
+  --fs-lg: clamp(1.25rem, 1.1rem + .7vw, 1.6rem);
+  --fs-xl: clamp(1.8rem, 1.3rem + 2.2vw, 3rem);
+  --fs-hero: clamp(2.4rem, 1.4rem + 4.8vw, 5rem);
+
+  /* layout */
+  --wrap: 1180px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --section-y: clamp(4rem, 9vw, 8rem);
+  --radius: 18px;
+  --radius-lg: 28px;
+
+  /* motion */
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  --t-fast: .25s;
+  --t-med: .6s;
+  --t-slow: 1s;
+
+  --shadow-1: 0 6px 20px rgba(60, 20, 30, .10);
+  --shadow-2: 0 18px 50px rgba(60, 20, 30, .18);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--fs-md);
+  line-height: 1.9;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+main { overflow-x: clip; } /* clip (not hidden) keeps position: sticky working */
+img, video, svg { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+h1, h2, h3, h4 { margin: 0 0 .5em; line-height: 1.35; font-weight: 800; }
+p { margin: 0 0 1em; }
+:focus-visible { outline: 3px solid var(--gold-500); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--saffron-600); color: #fff; }
+
+/* layout helpers */
+.wrap { width: min(100% - var(--gutter) * 2, var(--wrap)); margin-inline: auto; }
+.section { padding-block: var(--section-y); position: relative; }
+.section--alt { background: var(--bg-alt); }
+.section--dark { background: var(--bg-dark); color: var(--cream-50); }
+.section--dark .eyebrow, .section--dark .title em { color: var(--gold-300); }
+.section--dark .text-soft { color: rgba(251, 246, 236, .7); }
+.text-soft { color: var(--text-soft); }
+.center { text-align: center; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: var(--fs-sm); font-weight: 700; color: var(--accent);
+  letter-spacing: .02em; margin-bottom: .8rem;
+}
+.eyebrow::before { content: ""; width: 34px; height: 2px; background: currentColor; }
+.title { font-size: var(--fs-xl); text-wrap: balance; }
+.title em { font-style: normal; color: var(--accent); }
+
+/* buttons */
+.btn {
+  --_bg: var(--saffron-600); --_fg: #fff;
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: .85rem 1.7rem; border-radius: 999px; font-weight: 700; font-size: var(--fs-sm);
+  background: var(--_bg); color: var(--_fg);
+  box-shadow: 0 8px 22px rgba(179, 18, 40, .28);
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), background var(--t-fast);
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(179, 18, 40, .38); }
+.btn:active { transform: translateY(0); }
+.btn--gold { --_bg: var(--gold-500); --_fg: var(--ink-900); box-shadow: 0 8px 22px rgba(217, 164, 65, .35); }
+.btn--ghost { --_bg: transparent; --_fg: currentColor; box-shadow: inset 0 0 0 2px currentColor; }
+.btn--ghost:hover { box-shadow: inset 0 0 0 2px currentColor, 0 10px 24px rgba(0, 0, 0, .15); }
+
+/* scroll reveal (driven by main.js) */
+.js [data-reveal] {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+  transition-delay: var(--d, 0s);
+}
+.js [data-reveal="right"] { transform: translateX(40px); }
+.js [data-reveal="left"] { transform: translateX(-40px); }
+.js [data-reveal="zoom"] { transform: scale(.92); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+@media (max-width: 900px) { .js [data-reveal="left"], .js [data-reveal="right"] { transform: translateY(32px); } }
+
+/* decorative */
+.grain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+}

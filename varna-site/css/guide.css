@@ -1,0 +1,48 @@
+/* ===== guide + faq (step 6) ===== */
+.guide__head { max-width: 40rem; margin-inline: auto; margin-bottom: 2rem; }
+.tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: .6rem; margin-bottom: 2.4rem; }
+.tab { padding: .65rem 1.5rem; border-radius: 999px; font-weight: 800; font-size: var(--fs-sm); background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .15); color: rgba(251, 246, 236, .8); transition: background .3s, color .3s, transform .3s var(--ease); }
+.tab:hover { transform: translateY(-2px); }
+.tab[aria-selected="true"] { background: var(--gold-500); border-color: var(--gold-500); color: var(--ink-900); }
+.panel { display: none; }
+.panel.is-on { display: block; animation: panel .6s var(--ease); }
+@keyframes panel { from { opacity: 0; transform: translateY(20px); } }
+
+.gsplit { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.gsteps { list-style: none; margin: 0; padding: 0; counter-reset: g; display: grid; gap: 1rem; }
+.gsteps li { counter-increment: g; position: relative; padding: 1rem 1.2rem; padding-inline-start: 4rem; border-radius: var(--radius); background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); font-size: var(--fs-sm); color: rgba(251, 246, 236, .88); }
+.gsteps li::before { content: counter(g, persian); position: absolute; inset-inline-start: 1rem; top: 50%; translate: 0 -50%; width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 900; background: var(--gold-500); color: var(--ink-900); }
+.gsteps b { color: var(--gold-300); }
+.gnote { margin-top: 1.2rem; font-size: var(--fs-xs); color: rgba(251, 246, 236, .6); }
+
+/* water test demo */
+.demo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center; }
+.cup { position: relative; }
+.cup__glass { position: relative; height: 190px; margin-inline: auto; width: 130px; border: 3px solid rgba(255, 255, 255, .55); border-top-color: rgba(255, 255, 255, .25); border-radius: 6px 6px 34px 34px; overflow: hidden; background: rgba(255, 255, 255, .06); }
+.cup__water { position: absolute; inset: 24px 0 0 0; background: rgba(190, 220, 255, .22); transition: background 1s; }
+.cup--real .cup__water { transition: background 9s linear; }
+.cup--fake .cup__water { transition: background 1.2s ease-out; }
+.demo.run .cup--real .cup__water { background-color: #eaa820; }
+.demo.run .cup--fake .cup__water { background-color: #b8132a; }
+.thread { position: absolute; top: 34px; width: 3px; height: 38px; border-radius: 3px; background: var(--saffron-500); animation: sink 5s ease-in-out infinite alternate; }
+.thread:nth-child(2) { inset-inline-start: 38%; } .thread:nth-child(3) { inset-inline-start: 50%; height: 30px; animation-delay: -1.5s; } .thread:nth-child(4) { inset-inline-start: 62%; animation-delay: -3s; }
+@keyframes sink { to { translate: 0 30px; rotate: 6deg; } }
+.cup figcaption { margin-top: .8rem; font-weight: 800; font-size: var(--fs-sm); color: var(--gold-300); }
+.cup figcaption small { display: block; font-weight: 500; color: rgba(251, 246, 236, .65); font-size: var(--fs-xs); }
+.demo__btn { grid-column: 1 / -1; justify-self: center; margin-top: .6rem; }
+
+.gimg { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.gimg img { border-radius: var(--radius); box-shadow: var(--shadow-2); width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4; transition: transform .8s var(--ease); }
+.gimg img:hover { transform: scale(1.04) rotate(-1deg); }
+
+/* faq */
+.faq { max-width: 780px; margin-inline: auto; display: grid; gap: .8rem; }
+.faq details { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-1); overflow: hidden; }
+.faq summary { list-style: none; cursor: pointer; padding: 1.1rem 1.4rem; font-weight: 800; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--crocus-100); color: var(--crocus-600); font-size: 1.3rem; transition: transform .4s var(--ease), background .3s; }
+.faq details[open] summary::after { transform: rotate(135deg); background: var(--saffron-600); color: #fff; }
+.faq details > div { padding: 0 1.4rem 1.2rem; color: var(--ink-700); font-size: var(--fs-sm); animation: panel .5s var(--ease); }
+
+@media (max-width: 860px) { .gsplit { grid-template-columns: 1fr; } .gimg { order: -1; } }
+@media (prefers-reduced-motion: reduce) { .thread { animation: none; } .cup--real .cup__water, .cup--fake .cup__water { transition-duration: .01s; } }

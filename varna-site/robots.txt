@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# After you get a domain, add this line (replace the domain):
+# Sitemap: https://YOUR-DOMAIN.ir/sitemap.xml
