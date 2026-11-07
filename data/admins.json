@@ -1,0 +1,40 @@
+{
+ "v": 1,
+ "idSalt": "varna-admin-id-v1",
+ "idIters": 100000,
+ "iters": 150000,
+ "admins": [
+  {
+   "id": "Sp4p2QdQzWOYyT9AuJFRDGkocvgcQMGNS56HDMgnZdM=",
+   "label": "ادمین اول",
+   "tail": "8614",
+   "salt": "Y/QM42fYsVBpcmMZ7TvFUg==",
+   "hash": "Oev+TuXh1BqKYIEYfiS3zdUBvBbeWPyvMlT65MWslwM=",
+   "must": true
+  },
+  {
+   "id": "DZ7GM6INSWOeRv7kPisFCQC6UOOnKED9kOtYd/EWGiw=",
+   "label": "ادمین دوم",
+   "tail": "4672",
+   "salt": "7eRCfhh3kGnuvp4yQnkyAg==",
+   "hash": "duab6gsBJi3gnYx/v4gqPjABJAeU/MsE6lGqcMWXELI=",
+   "must": true
+  },
+  {
+   "id": "szPSiyHFSrao+gZLLcDRc7/SXLxRhLkwqfJhP3LI28I=",
+   "label": "ادمین سوم",
+   "tail": "4671",
+   "salt": "8yph7gYh/CAi4nd8CE9jnw==",
+   "hash": "qfuWkB9EQnFmG3QWPA0T+mm0Zw4m6OhJGtaAo2wIGWk=",
+   "must": true
+  },
+  {
+   "id": "2/lLbMENCBgZq4PdBRYsiqWgvX/9tuW1F3Dzdpw7rQY=",
+   "label": "ادمین چهارم",
+   "tail": "9219",
+   "salt": "h+JHvZhBlQv2ioGZ+vBXJw==",
+   "hash": "YbyyV4zmZV1vk+FR4H0cipf+OvJXL+6HmAtVL6GDK0Y=",
+   "must": true
+  }
+ ]
+}

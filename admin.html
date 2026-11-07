@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>پنل مدیریت وارنا</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.003/Vazirmatn-font-face.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="adm">
+
+  <!-- ===== login ===== -->
+  <main class="login" id="loginView">
+    <form class="login__card" id="loginForm" autocomplete="off">
+      <div class="login__logo">وارنا <em>زعفران</em></div>
+      <p class="text-soft">ورود به پنل مدیریت</p>
+
+      <label>شمارهٔ موبایل
+        <input id="fPhone" dir="ltr" inputmode="numeric" autocomplete="username" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required>
+      </label>
+      <label>رمز عبور
+        <input id="fPass" type="password" autocomplete="current-password" required>
+      </label>
+      <label id="tokenRow">کلید دسترسی GitHub <small>(فقط بار اول روی هر دستگاه)</small>
+        <input id="fToken" type="password" dir="ltr" autocomplete="off" placeholder="github_pat_...">
+      </label>
+
+      <p class="msg" id="loginMsg" role="alert"></p>
+      <button class="btn" id="loginBtn" type="submit">ورود</button>
+      <details class="help">
+        <summary>کلید دسترسی GitHub چیست و چطور بسازم؟</summary>
+        <div id="tokenHelp"></div>
+      </details>
+    </form>
+  </main>
+
+  <!-- ===== app ===== -->
+  <div id="appView" hidden>
+    <header class="top">
+      <div><b>پنل مدیریت وارنا</b> <span class="who" id="who"></span></div>
+      <div class="top__btns">
+        <a href="index.html" target="_blank" rel="noopener">دیدن سایت</a>
+        <button id="forgetKey" type="button">حذف کلید از این دستگاه</button>
+        <button id="logout" type="button">خروج</button>
+      </div>
+    </header>
+
+    <div class="banner" id="dirtyBar" hidden>
+      <span>تغییرات ذخیره‌نشده دارید.</span>
+      <label class="chk"><input type="checkbox" id="bumpDate" checked> تاریخ قیمت‌ها به امروز تغییر کند</label>
+      <button class="btn" id="publishBtn" type="button">ذخیره و انتشار روی سایت</button>
+    </div>
+
+    <nav class="tabs2" role="tablist">
+      <button class="on" data-tab="tProducts" role="tab">محصولات</button>
+      <button data-tab="tPass" role="tab">رمزها</button>
+      <button data-tab="tHelp" role="tab">راهنما</button>
+    </nav>
+
+    <section class="pane on" id="tProducts">
+      <div class="pane__head">
+        <h2>محصولات <small id="pcount"></small></h2>
+        <div><button class="btn btn--sm btn--ghost" id="reloadBtn" type="button">بارگذاری دوباره</button>
+        <button class="btn btn--sm" id="addBtn" type="button">افزودن کالا</button></div>
+      </div>
+      <div class="plist2" id="plist2"></div>
+    </section>
+
+    <section class="pane" id="tPass">
+      <div class="pane__head"><h2>رمز ادمین‌ها</h2></div>
+      <p class="text-soft">هر ادمین می‌تواند رمز خودش و بقیه را عوض کند. وقتی رمز یک ادمین دیگر را عوض می‌کنی، او در ورود بعدی مجبور می‌شود رمز تازه‌ای برای خودش بگذارد.</p>
+      <div class="plist2" id="alist"></div>
+    </section>
+
+    <section class="pane" id="tHelp">
+      <div class="pane__head"><h2>راهنما</h2></div>
+      <div class="helpbox">
+        <h3>ذخیره و انتشار</h3>
+        <p>همهٔ تغییرات اول فقط روی همین صفحه ثبت می‌شود. با دکمهٔ «ذخیره و انتشار» به GitHub فرستاده می‌شود و حدود یک تا دو دقیقه بعد روی سایت می‌آید.</p>
+        <h3>قیمت</h3>
+        <p>قیمت را به هزار تومان بنویس (۲٬۳۰۰ یعنی ۲٬۳۰۰٬۰۰۰ تومان). اگر خالی بماند، در سایت «استعلام قیمت» نوشته می‌شود.</p>
+        <h3>عکس</h3>
+        <p>می‌توانی عکسی از عکس‌های موجود انتخاب کنی یا عکس تازه آپلود کنی. عکس تازه خودکار کوچک و بهینه می‌شود.</p>
+        <h3>کلید دسترسی GitHub</h3>
+        <div id="tokenHelp2"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- product editor -->
+  <dialog class="edlg" id="edlg">
+    <form id="edForm" method="dialog">
+      <h3 id="edTitle">ویرایش کالا</h3>
+      <div class="edgrid">
+        <label class="full">نام کالا <input id="eName" required maxlength="120"></label>
+        <label>اندازه / وزن <input id="eSize" maxlength="60" placeholder="مثلاً یک مثقال"></label>
+        <label>قیمت (هزار تومان) <input id="ePrice" inputmode="numeric" placeholder="خالی = استعلام قیمت"></label>
+        <label>دسته <select id="eCat"></select></label>
+        <label>نشان (اختیاری) <input id="eBadge" maxlength="20" placeholder="مثلاً پرفروش"></label>
+        <label class="full">توضیح کوتاه <textarea id="eDesc" rows="3" maxlength="300"></textarea></label>
+        <div class="full imgpick">
+          <img id="ePrev" alt="">
+          <div>
+            <label>عکس از عکس‌های موجود <select id="eImgSel"></select></label>
+            <label class="upl">یا آپلود عکس تازه <input id="eFile" type="file" accept="image/*"></label>
+            <small class="text-soft" id="eImgNote"></small>
+          </div>
+        </div>
+      </div>
+      <p class="msg" id="edMsg" role="alert"></p>
+      <div class="edbtns"><button class="btn" id="edOk" type="submit" value="ok">ثبت</button><button class="btn btn--ghost" type="button" id="edCancel">انصراف</button></div>
+    </form>
+  </dialog>
+
+  <!-- password dialog -->
+  <dialog class="edlg" id="pwdlg">
+    <form id="pwForm" method="dialog">
+      <h3 id="pwTitle">تغییر رمز</h3>
+      <p class="text-soft" id="pwNote"></p>
+      <label>رمز تازه (حداقل ۸ حرف) <input id="pw1" type="password" autocomplete="new-password" required minlength="8"></label>
+      <label>تکرار رمز <input id="pw2" type="password" autocomplete="new-password" required minlength="8"></label>
+      <p class="msg" id="pwMsg" role="alert"></p>
+      <div class="edbtns"><button class="btn" type="submit">ثبت رمز</button><button class="btn btn--ghost" type="button" id="pwCancel">انصراف</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -6,7 +6,9 @@
 
   const fa = s => String(s).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const money = p => p.price == null ? "استعلام قیمت" : fa((p.price * 1000).toLocaleString("en-US")).replace(/,/g, "٬") + " تومان";
-  const img = (p, sm) => `assets/img/${p.img}${sm ? "-sm" : ""}.webp`;
+  const priceHTML = p => p.price == null ? "استعلام قیمت"
+    : fa((p.price * 1000).toLocaleString("en-US")).replace(/,/g, "٬") + " <small>تومان</small>";
+  const img = (p, sm) => `assets/img/${p.img}${sm ? "-sm" : ""}.${p.ext || "webp"}`;
   const V = window.VARNA || { admins: [], channels: {} };
 
   // order link: prefilled Telegram message to the first admin
@@ -24,11 +26,12 @@
         <div class="pcard__img">
           <img src="${img(p, true)}" alt="${p.name}" loading="lazy" width="480" height="480">
           ${p.badge ? `<span class="pcard__badge">${p.badge}</span>` : ""}
+          <button class="pcard__add" data-add aria-label="افزودن به سبد سفارش">+</button>
         </div>
         <div class="pcard__body">
           <h3>${p.name}</h3>
           <span class="pcard__size">${p.size}</span>
-          <div class="pcard__foot"><b class="${p.price == null ? "ask" : ""}">${money(p)}</b><span class="pcard__go">جزئیات ←</span></div>
+          <div class="pcard__foot"><b class="${p.price == null ? "ask" : ""}">${priceHTML(p)}</b><span class="pcard__go">جزئیات ←</span></div>
         </div>
       </article>`).join("");
   };
@@ -53,7 +56,17 @@
     dlg.querySelector(".pdlg__order").href = orderLink(p);
     dlg.showModal();
   };
-  grid.addEventListener("click", e => { const c = e.target.closest(".pcard"); if (c) open(c.dataset.id); });
+  grid.addEventListener("click", e => {
+    const c = e.target.closest(".pcard"); if (!c) return;
+    const add = e.target.closest("[data-add]");
+    if (add) {                       // quick add without opening the modal
+      window.addToCart && window.addToCart(c.dataset.id);
+      add.classList.add("added"); add.textContent = "✓";
+      setTimeout(() => { add.classList.remove("added"); add.textContent = "+"; }, 1200);
+      return;
+    }
+    open(c.dataset.id);
+  });
   grid.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.classList.contains("pcard")) { e.preventDefault(); open(e.target.dataset.id); } });
   dlg.addEventListener("click", e => { if (e.target === dlg || e.target.closest(".pdlg__x")) dlg.close(); });
 

@@ -27,7 +27,7 @@
 
   list.innerHTML = PRODUCTS.map(p => `
     <div class="prow" data-id="${p.id}">
-      <img src="assets/img/${p.img}-sm.webp" alt="" loading="lazy" width="64" height="64">
+      <img src="assets/img/${p.img}-sm.${p.ext || "webp"}" alt="" loading="lazy" width="64" height="64">
       <div class="prow__name"><b>${p.name}</b><span>${p.size}</span></div>
       <div class="prow__price ${p.price == null ? "ask" : ""}">${p.price == null ? "استعلام قیمت" : toman(p.price) + " <small>تومان</small>"}</div>
       <div class="prow__ctl">${ctl(p)}</div>

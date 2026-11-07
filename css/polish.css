@@ -1,0 +1,45 @@
+/* ===== polish.css: design upgrade round 2 (loaded last) ===== */
+
+/* hero: golden glow + warmer photo + tag that does not cover the photo on mobile */
+.hero__art { isolation: isolate; }
+.hero__art::before {
+  content: ""; position: absolute; inset: -14%; z-index: -1; pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, rgba(217, 164, 65, .38), transparent 62%); filter: blur(22px);
+}
+.arch img { filter: saturate(1.14) contrast(1.05) sepia(.08); }
+@media (max-width: 860px) {
+  .hero__tag { inset-inline-start: auto; inset-inline-end: -10px; bottom: -14px; padding: .45rem .8rem; font-size: .78rem; }
+}
+
+/* trust strip */
+.trust { background: var(--bg); border-bottom: 1px solid var(--line); }
+.trust__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding-block: 1.6rem; }
+.trust__item { display: flex; align-items: center; gap: .9rem; }
+.trust__ic {
+  flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--crocus-100); color: var(--crocus-600); transition: background .35s, color .35s, transform .5s var(--ease);
+}
+.trust__item:hover .trust__ic { background: var(--saffron-600); color: #fff; transform: rotate(-8deg) scale(1.08); }
+.trust__ic svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.trust__item b { display: block; font-size: var(--fs-sm); line-height: 1.5; }
+.trust__item span { font-size: var(--fs-xs); color: var(--text-soft); }
+@media (max-width: 760px) { .trust__grid { grid-template-columns: 1fr 1fr; gap: 1.2rem .8rem; } .trust__ic { width: 40px; height: 40px; } }
+
+/* product cards: quick add, stronger price, even photo tone */
+.pcard__img::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(60, 20, 30, .2)); }
+.pcard__add {
+  position: absolute; bottom: 12px; inset-inline-end: 12px; z-index: 2; width: 42px; height: 42px; border-radius: 50%;
+  background: var(--saffron-600); color: #fff; font-size: 1.6rem; line-height: 1; box-shadow: 0 8px 18px rgba(179, 18, 40, .4);
+  transition: transform .3s var(--ease), background .3s;
+}
+.pcard__add:hover { transform: scale(1.12) rotate(90deg); }
+.pcard__add.added { background: #2e7d32; transform: scale(1.15); }
+.pcard__foot b { font-size: 1.05rem; font-weight: 900; }
+.pcard__foot b small { font-size: .7rem; font-weight: 600; color: var(--text-soft); }
+
+/* curved section edges */
+.section--alt::before, .section--dark::before {
+  content: ""; position: absolute; inset: -1px 0 auto 0; height: clamp(24px, 4vw, 48px); pointer-events: none;
+  background: var(--bg); clip-path: ellipse(55% 100% at 50% 0);
+}
+.section--dark::before { background: var(--bg-alt); }
